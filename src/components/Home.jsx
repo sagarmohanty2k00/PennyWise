@@ -129,18 +129,6 @@ export default function Home() {
           </TableBody>
         </Table>
       </TableContainer>
-
-      <Stack direction="row" spacing={2}>
-        <Button component={Link} to="/expenses" variant="outlined">
-          Expenses
-        </Button>
-        <Button component={Link} to="/emis" variant="outlined">
-          EMIs
-        </Button>
-        <Button component={Link} to="/stats" variant="outlined">
-          Stats
-        </Button>
-      </Stack>
     </>
   );
 }
