@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TextField, Button, Typography, Box, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function Login({ onLogin }) {
@@ -11,31 +12,43 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     if (email && password) {
       onLogin();
-      navigate("/", { replace: true });  // Redirect to home on login success
+      navigate("/", { replace: true });
     } else {
       setError("Please enter email and password.");
     }
   };
 
   return (
-    <form onSubmit={fakeAuth} style={{ maxWidth: 400, margin: "auto" }}>
-      <h2>Sign In</h2>
-      <input
+    <Box component="form" onSubmit={fakeAuth} sx={{ maxWidth: 400, mx: "auto" }}>
+      <Typography variant="h4" gutterBottom>
+        Sign In
+      </Typography>
+      <TextField
+        label="Email"
         type="email"
-        placeholder="Email"
         value={email}
         onChange={(e) => { setEmail(e.target.value); setError(null); }}
+        fullWidth
+        margin="normal"
         required
       />
-      <input
+      <TextField
+        label="Password"
         type="password"
-        placeholder="Password"
         value={password}
         onChange={(e) => { setPassword(e.target.value); setError(null); }}
+        fullWidth
+        margin="normal"
         required
       />
-      <button type="submit">Sign In</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-    </form>
+      <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+        Sign In
+      </Button>
+      {error && (
+        <Alert severity="error" sx={{ mt: 2 }}>
+          {error}
+        </Alert>
+      )}
+    </Box>
   );
 }

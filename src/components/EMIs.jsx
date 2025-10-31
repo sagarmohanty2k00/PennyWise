@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Typography, List, ListItem, ListItemText, Divider, TextField, Button, Box, Stack } from "@mui/material";
 
 export default function EMIs() {
   const [emis, setEmis] = useState([
@@ -27,7 +28,7 @@ export default function EMIs() {
           amount: parseFloat(form.amount),
           startDate: form.startDate,
           endDate: form.endDate,
-          totalInstallments: 12, 
+          totalInstallments: 12,
           paidInstallments: 0,
         },
       ]);
@@ -36,42 +37,52 @@ export default function EMIs() {
   };
 
   return (
-    <div>
-      <h1>EMIs</h1>
+    <>
+      <Typography variant="h3" gutterBottom>
+        EMIs
+      </Typography>
 
-      <ul>
+      <List>
         {emis.map((emi) => (
-          <li key={emi.id}>
-            EMI: ₹{emi.amount} from {emi.startDate} to {emi.endDate} - Paid {emi.paidInstallments}/{emi.totalInstallments} installments
-          </li>
+          <ListItem key={emi.id} divider>
+            <ListItemText
+              primary={`EMI: ₹${emi.amount} from ${emi.startDate} to ${emi.endDate}`}
+              secondary={`Paid ${emi.paidInstallments}/${emi.totalInstallments} installments`}
+            />
+          </ListItem>
         ))}
-      </ul>
+      </List>
 
-      <h3>Add EMI</h3>
-      <form onSubmit={addEmi}>
-        <input
-          type="number"
-          placeholder="EMI amount"
-          value={form.amount}
-          onChange={(e) => setForm({ ...form, amount: e.target.value })}
-          required
-        />
-        <input
-          type="date"
-          placeholder="Start date"
-          value={form.startDate}
-          onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-          required
-        />
-        <input
-          type="date"
-          placeholder="End date"
-          value={form.endDate}
-          onChange={(e) => setForm({ ...form, endDate: e.target.value })}
-          required
-        />
-        <button type="submit">Add EMI</button>
-      </form>
-    </div>
+      <Box component="form" onSubmit={addEmi} sx={{ mt: 4, maxWidth: 400 }}>
+        <Stack spacing={2}>
+          <TextField
+            label="EMI amount"
+            type="number"
+            value={form.amount}
+            onChange={(e) => setForm({ ...form, amount: e.target.value })}
+            required
+          />
+          <TextField
+            label="Start date"
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            value={form.startDate}
+            onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+            required
+          />
+          <TextField
+            label="End date"
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            value={form.endDate}
+            onChange={(e) => setForm({ ...form, endDate: e.target.value })}
+            required
+          />
+          <Button type="submit" variant="contained">
+            Add EMI
+          </Button>
+        </Stack>
+      </Box>
+    </>
   );
 }

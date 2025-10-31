@@ -1,3 +1,5 @@
+import { Typography, List, ListItem, ListItemText, Divider } from "@mui/material";
+
 export default function Expenses() {
   const fixedSpends = [
     { id: 1, description: "Rent", amount: 15000 },
@@ -12,22 +14,34 @@ export default function Expenses() {
     { id: 6, description: "Vacation Fund", amount: 3000 },
   ];
 
-  const renderList = (items) => items.map((item) => (
-    <li key={item.id}>{item.description}: ₹{item.amount}</li>
-  ));
+  const renderList = (items) => (
+    <List>
+      {items.map((item) => (
+        <ListItem key={item.id} divider>
+          <ListItemText primary={item.description} secondary={"₹" + item.amount} />
+        </ListItem>
+      ))}
+    </List>
+  );
 
   return (
-    <div>
-      <h1>Expenses</h1>
+    <>
+      <Typography variant="h3" gutterBottom>
+        Expenses
+      </Typography>
 
-      <h3>Fixed Spends</h3>
-      <ul>{renderList(fixedSpends)}</ul>
+      <Typography variant="h5">Fixed Spends</Typography>
+      {renderList(fixedSpends)}
 
-      <h3>Volatile Spends</h3>
-      <ul>{renderList(volatileSpends)}</ul>
+      <Typography variant="h5" sx={{ mt: 3 }}>
+        Volatile Spends
+      </Typography>
+      {renderList(volatileSpends)}
 
-      <h3>Savings</h3>
-      <ul>{renderList(savings)}</ul>
-    </div>
+      <Typography variant="h5" sx={{ mt: 3 }}>
+        Savings
+      </Typography>
+      {renderList(savings)}
+    </>
   );
 }
